@@ -1,69 +1,45 @@
-# React + TypeScript + Vite
+# News Site React Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+This is a simple React-based news aggregator app that fetches and displays news articles from various sources. The project helped me further learn and practice frontend development skills, React concepts and working with APIs.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## What I Learned
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 1. React Fundamentals
+- Creating functional components using React hooks.
+- Managing component state with `useState`.
+- Handling side effects and data fetching with `useEffect`.
+- Passing props to components for reusable and configurable UI.
+- Conditional rendering and list rendering.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 2. API Integration
+- Fetching data asynchronously using the native `fetch` API.
+- Handling JSON responses and errors.
+- Understanding how to work with external REST APIs.
+- Building dynamic requests based on user input or component props.
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### 3. Component Composition & Reusability
+- Breaking down UI into smaller, manageable components.
+- Designing components to be flexible and reusable.
+- Passing callback functions and data through props for interactivity.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 4. State & UI Updates
+- Updating the UI in response to user actions or new data.
+- Using state to filter or update the displayed news articles dynamically.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 5. Error Handling & Loading States
+- Showing loading indicators while fetching data.
+- Displaying error messages gracefully when API calls fail.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 6. Git & Version Control
+- Initializing a Git repository for version control.
+- Making commits with meaningful messages.
+- Adding a remote repository and pushing code to GitHub.
+- Using SSH keys for secure and convenient authentication.
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 7. Basic Styling & Layout
+- Applying Tailwind CSS to style the news list and components.
+- Using modern CSS features for responsive layouts.
