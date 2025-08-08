@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Mozilla+Text:wght@200..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-mozilla: "Mozilla Text", "sans-serif";
+}
+
+@layer components {
+  .header-font {
+    @apply font-mozilla text-4xl font-bold;
+  }
+
+  .news-component {
+    @apply border-2 min-h-0 overflow-y-auto;
+  }
+
+  .center {
+    @apply flex justify-center items-center min-h-full;
+  }
+}
+
+:root {
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
