@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import './App.css'
-import GeneralNews from './components/GeneralNews';
+import News from './components/News';
 import Popover from './components/Popover';
+import Stocks from './components/Stocks';
 import type { Article } from './types/news';
 
 function App() {
@@ -26,15 +27,15 @@ function App() {
 
       <main className='flex-1 header-font grid grid-cols-2 grid-rows-2 min-h-0'>
         <section className='news-component'>
-          <GeneralNews onArticleClick={openPopoverWithArticle}/>
+          <News type={'top'} onArticleClick={openPopoverWithArticle} />
         </section>
 
         <div className='news-component'>
-
+          <News type={'keyword'} onArticleClick={openPopoverWithArticle} />
         </div>
 
         <div className='news-component'>
-          <p>Stock Tickers</p>
+          <Stocks />
         </div>
 
         <div className='news-component'>
