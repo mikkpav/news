@@ -24,7 +24,6 @@ export default function News({ type, onArticleClick }: NewsProps) {
 
     function handleFormSubmit(e: React.FormEvent) {
         e.preventDefault();
-        console.log('- draft: ' + keywordDraft);
         setKeywords((prevList) => [ ...prevList, keywordDraft ]);
         setKeywordDraft('');
     }
@@ -34,13 +33,12 @@ export default function News({ type, onArticleClick }: NewsProps) {
         if (didLoad.current) return;
         didLoad.current = true;
 
-        // if (type === 'top') {
-        //     loadTopNews()
-        // } 
-        // The idea was to not automatically load the keyword news - only do it after keyword entered
-        // else {
-        //     loadNewsWithKeywords();
-        // }                
+        if (type === 'top') {
+            loadTopNews()
+        } else {
+            // The idea was to not automatically load the keyword news - only do it after keyword entered
+            loadNewsWithKeywords();
+        }                
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -57,33 +55,24 @@ export default function News({ type, onArticleClick }: NewsProps) {
         }
     }
 
-    // const loadNewsWithKeywords = useCallback(async () => {
-    //     try {
-    //         const articles = await NewsService.fetchHeadlinesByKeywords(keywords)
-    //         console.log(articles);
-    //         setArticles(articles);
-    //     } catch (error) {
-    //         setError((error as Error).message);
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // }, [keywords]);
+    const loadNewsWithKeywords = useCallback(async () => {
+        try {
+            const articles = await NewsService.fetchHeadlinesByKeywords(keywords)
+            console.log(articles);
+            setArticles(articles);
+        } catch (error) {
+            setError((error as Error).message);
+        } finally {
+            setLoading(false);
+        }
+    }, [keywords]);
 
-    // useEffect(() => {
-    //     loadNewsWithKeywords();
-    // }, [loadNewsWithKeywords]);
-
-    // async function loadNewsWithKeywords() {
-    //     try {
-    //         const articles = await NewsService.fetchHeadlinesByKeywords(keywords)
-    //         console.log(articles);
-    //         setArticles(articles);
-    //     } catch (error) {
-    //         setError((error as Error).message);
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // }
+    useEffect(() => {
+        if (type === 'keyword') {
+            loadNewsWithKeywords();
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loadNewsWithKeywords]);
 
     if (loading) {
         return (

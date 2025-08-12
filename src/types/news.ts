@@ -12,7 +12,7 @@ export interface Article {
     image: string | null;
     publishedAt: string;
     content: string | null;
-    isTruncated: boolean;
+    isTruncated?: boolean;
 }
 
 export interface Source {

@@ -1,0 +1,28 @@
+{
+    "code": 200,
+    "status": "success",
+    "data": {
+        "req_1": {
+            "response": {
+                "price": 182.06
+            },
+            "status": "success"
+        },
+        "req_2": {
+            "response": {
+                "price": 289.56
+            },
+            "status": "success"
+        },"req_3": {
+            "response": {
+                "price": 521.77
+            },
+            "status": "success"
+        },"req_4": {
+            "response": {
+                "price": 339.03
+            },
+            "status": "success"
+        }
+    }
+}

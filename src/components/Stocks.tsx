@@ -8,11 +8,12 @@ export default function Stocks() {
 
     useEffect(() => {
         loadPrices();
-    });
+    }, []);
 
     async function loadPrices() {
         try {
-            const newPrices = await StocksService.fetchStockPrice();
+            const symbols = ['NVDA', 'JPM', 'MSFT', 'TSLA'];
+            const newPrices = await StocksService.fetchBatchStockPrices(symbols);
             console.log(newPrices);
             setPrices(newPrices);
         } catch (error) {
@@ -24,8 +25,8 @@ export default function Stocks() {
 
     return (
         <ul>
-            { prices.map((price) => (
-                <li>
+            { prices.map((price, index) => (
+                <li key={ index }>
                     <p>AAPL: </p>
                     <p>{price}</p>
                 </li>

@@ -50,7 +50,7 @@ function App() {
             imageUrl={selectedArticle.image}
             title={selectedArticle.title}
             content={selectedArticle.content}
-            isContentTruncated={selectedArticle.isTruncated}
+            isContentTruncated={selectedArticle.isTruncated ?? false}
             targetUrl={selectedArticle.url}
             >
           </Popover>

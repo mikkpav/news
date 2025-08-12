@@ -1,11 +1,15 @@
 import type { Article, NewsResponse } from '../types/news';
-import type { StocksResponse } from '../types/stocks';
+import top_debug from './top_debug_response.json';
+import keyword_debug from './keyword_debug_response.json';
+import { fetchOrLoadDebug } from './serviceBase';
 
 const API_KEY_GNEWS = 'd1ba137ee3c83c08205997ea251685b3';
 const BASE_URL_GNEWS = 'https://gnews.io/api/v4';
 const ENDPOINT_GNEWS_HEADLINES = 'top-headlines';
 const ENDPOINT_GNEWS_SEARCH = 'search';
 const TRUNCATION_REGEX = /\s*(?:\.\.\.|…)\s*\[\s*(\d+)\s*chars\s*\]\s*$/i;
+
+const DEBUG = true;
 
 function buildUrl(endpoint: string, params: Record<string, string>): string {
     const url = new URL(`${BASE_URL_GNEWS}/${endpoint}`);
@@ -20,13 +24,7 @@ function buildUrl(endpoint: string, params: Record<string, string>): string {
 const NewsService = {
     async fetchTopHeadlines(country: string = 'us'): Promise<Article[]> {
         const url = buildUrl(ENDPOINT_GNEWS_HEADLINES, { country });
-        console.log(`URL: ${url.toString()}`)
-        const res = await fetch(url);
-        if (!res.ok) {
-            throw new Error(`Error ${res.status}: Unable to fetch top headlines for ${ country }`);
-        } 
-
-        const data: NewsResponse = await res.json();
+        const data: NewsResponse = await fetchOrLoadDebug<NewsResponse>(url, DEBUG, top_debug);
         const cleanedArticles = data.articles.map(article => {
             const truncatedMatch = article.content?.match(TRUNCATION_REGEX);
 
@@ -49,16 +47,8 @@ const NewsService = {
 
     async fetchHeadlinesByKeywords(keywords: string[]): Promise<Article[]> {
         const query = encodeURIComponent(keywords.join(' AND '));
-        console.log('-- keyword to URL: ' + query);
         const url = buildUrl(ENDPOINT_GNEWS_SEARCH, { q: query });
-        console.log('URL: ' + url.toString());
-
-        const res = await fetch(url);
-        if (!res.ok) {
-            throw new Error(`Error ${res.status}: Unable to fetch keyword news for ${keywords}`)
-        }
-
-        const data: NewsResponse = await res.json();
+        const data: NewsResponse = await fetchOrLoadDebug<NewsResponse>(url, DEBUG, keyword_debug);
         return data.articles;
     },
 };
