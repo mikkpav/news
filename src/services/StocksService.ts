@@ -1,21 +1,22 @@
-import type { StocksResponse } from '../types/stocks';
+import type { StocksResponse, StockPriceResponse } from '../types/stocks';
 import { fetchBatchOrLoadDebug } from './serviceBase';
-import stocks_debug from './stocks_debug_response.json';
+import stocks_debug from './test data/stocks_debug_response.json';
 
 const API_KEY_TWELVE_DATA = '1305ad2667684d83b734f6ee8b3d3f4a';
 const BASE_URL_TWELVE_DATA = 'https://api.twelvedata.com';
+
 const DEBUG = true;
 
 const StocksService = {
-    async fetchBatchStockPrices(symbols: string[]): Promise<number[]> {
+    async fetchBatchStockPrices(symbols: string[]): Promise<StockPriceResponse[]> {
         const batchPayload: Record<string, { url: string }> = {};
 
         symbols.forEach((symbol, index) => {
-        batchPayload[`req_${index + 1}`] = {
-            url: `/price?symbol=${symbol.toUpperCase()}&apikey=${API_KEY_TWELVE_DATA}`,
-        };
+            batchPayload[`req_${index + 1}`] = {
+                url: `/price?symbol=${symbol.toUpperCase()}&apikey=${API_KEY_TWELVE_DATA}`,
+            };
         });
-
+        
         const data = await fetchBatchOrLoadDebug<StocksResponse>(
             `${BASE_URL_TWELVE_DATA}/batch`,
             API_KEY_TWELVE_DATA,
@@ -24,8 +25,9 @@ const StocksService = {
             stocks_debug
         );
 
-        const prices = Object.keys(batchPayload).map(key => data.data[key]?.response.price ?? NaN);
-
+        const prices = Object.keys(batchPayload).map((key, index) => (
+            { symbol: symbols[index], price: parseFloat(data.data[key]?.response.price).toFixed(2) ?? 'NaN' }
+        ));
 
         return prices;
     }

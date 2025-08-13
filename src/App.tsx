@@ -3,6 +3,7 @@ import './App.css'
 import News from './components/News';
 import Popover from './components/Popover';
 import Stocks from './components/Stocks';
+import Weather from './components/Weather';
 import type { Article } from './types/news';
 
 function App() {
@@ -30,17 +31,17 @@ function App() {
           <News type={'top'} onArticleClick={openPopoverWithArticle} />
         </section>
 
-        <div className='news-component'>
+        <section className='news-component'>
           <News type={'keyword'} onArticleClick={openPopoverWithArticle} />
-        </div>
+        </section>
 
-        <div className='news-component'>
+        <section className='news-component'>
           <Stocks />
-        </div>
+        </section>
 
-        <div className='news-component'>
-          <p>Weather</p>
-        </div>
+        <section className='news-component'>
+          <Weather />
+        </section>
 
       <a href={selectedArticle?.url} target='_blank'>
         {selectedArticle && 

@@ -8,7 +8,7 @@ export async function fetchOrLoadDebug<T>(url: string, debug = false, debugData?
 
     return debugData;
   }
-  
+  console.log('>>> URL: ' + url);
   const res = await fetch(url);
   if (!res.ok) {
     throw new Error(`Fetch error ${res.status} at ${url}`);

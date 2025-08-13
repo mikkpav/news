@@ -46,7 +46,6 @@ export default function News({ type, onArticleClick }: NewsProps) {
     async function loadTopNews() {
         try {
             const articles = await NewsService.fetchTopHeadlines();
-            console.log(articles);
             setArticles(articles);
         } catch (error) {
             setError((error as Error).message);
@@ -58,7 +57,6 @@ export default function News({ type, onArticleClick }: NewsProps) {
     const loadNewsWithKeywords = useCallback(async () => {
         try {
             const articles = await NewsService.fetchHeadlinesByKeywords(keywords)
-            console.log(articles);
             setArticles(articles);
         } catch (error) {
             setError((error as Error).message);
@@ -79,10 +77,11 @@ export default function News({ type, onArticleClick }: NewsProps) {
             <div className='center'><img className='w-30' src={Loading}></img></div>
         );
     }
-    if (error) return <div className='center bg-red-300'>Error loading:<br/>{ error }</div>;
-    console.log('type:', type, 'loading:', loading);
+    if (error) return <div className='error'>Error loading:<br/>{ error }</div>;
+
     return (
         <>
+        <h1 className='section-title-font'>{ type == 'top' ? 'Top Headlines' : 'Search Headlines' }</h1>
             { type == 'keyword' && (
                 <form onSubmit={handleFormSubmit} className='flex flex-col p-4'>
                     <label htmlFor='keyword' className='text-sm'>Keywords:</label>
@@ -93,7 +92,7 @@ export default function News({ type, onArticleClick }: NewsProps) {
                         className='border-1 rounded-4 text-xl font-normal' />
                 </form>
             )}
-            <ul className='text-sm flex flex-col gap-2 min-h-0'>
+            <ul className='text-sm flex flex-col p-2 gap-2 min-h-0 overflow-y-auto scroll-hide'>
                 { articles.map((article) => (
                     <li 
                         key={ article.title } 

@@ -1,6 +1,6 @@
 import type { Article, NewsResponse } from '../types/news';
-import top_debug from './top_debug_response.json';
-import keyword_debug from './keyword_debug_response.json';
+import top_debug from './test data/top_debug_response.json';
+import keyword_debug from './test data/keyword_debug_response.json';
 import { fetchOrLoadDebug } from './serviceBase';
 
 const API_KEY_GNEWS = 'd1ba137ee3c83c08205997ea251685b3';

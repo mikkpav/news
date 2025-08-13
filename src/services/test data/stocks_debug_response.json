@@ -1,0 +1,63 @@
+{
+    "code": 200,
+    "status": "success",
+    "data": {
+        "req_1": {
+            "response": {
+                "price": "182.06"
+            },
+            "status": "success"
+        },
+        "req_2": {
+            "response": {
+                "price": "289.56"
+            },
+            "status": "success"
+        },"req_3": {
+            "response": {
+                "price": "521.77"
+            },
+            "status": "success"
+        },"req_4": {
+            "response": {
+                "price": "339.03"
+            },
+            "status": "success"
+        },"req_5": {
+            "response": {
+                "price": "103.94"
+            },
+            "status": "success"
+        },"req_6": {
+            "response": {
+                "price": "428.07"
+            },
+            "status": "success"
+        },"req_7": {
+            "response": {
+                "price": "227.18"
+            },
+            "status": "success"
+        },"req_8": {
+            "response": {
+                "price": "765.87"
+            },
+            "status": "success"
+        },"req_9": {
+            "response": {
+                "price": "201.63"
+            },
+            "status": "success"
+        },"req_10": {
+            "response": {
+                "price": "221.30"
+            },
+            "status": "success"
+        },"req_11": {
+            "response": {
+                "price": "464.73"
+            },
+            "status": "success"
+        }
+    }
+}
