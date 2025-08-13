@@ -1,4 +1,4 @@
-export function toDateTimeString(value: number, long: boolean = false): string {
+export function toDateTimeString(value: number): string {
   if (isNaN(value)) return '';
 
   return new Date(value * 1000).toLocaleDateString('en-US', {

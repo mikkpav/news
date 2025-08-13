@@ -19,9 +19,10 @@ function buildUrl(endpoint: string): string {
             lon: TALLINN_LON,
             units: UNITS_METRIC
         }
-        for (const key in parameters) {
-            url.searchParams.set(key, parameters[key]);
-        }
+
+        Object.entries(parameters).forEach(([key, value]) => {
+            url.searchParams.set(key, value);
+        });
     
     return url.toString();
 }
