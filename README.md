@@ -5,6 +5,11 @@
 This is a simple React-based news aggregator app that fetches and displays news articles from various sources. The project helped me further learn and practice frontend development skills, React concepts and working with APIs.
 
 ---
+# Backlog
+
+- Add mobile responsiveness
+- Add multiple keyword search and store over sessions
+- Change UI overlfow-y?
 
 ## What I Learned
 
