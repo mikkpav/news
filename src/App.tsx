@@ -26,7 +26,7 @@ function App() {
         The News
       </header>
 
-      <main className='flex-1 header-font grid grid-cols-2 grid-rows-2 min-h-0'>
+      <main className='flex-1 header-font grid grid-cols-2 grid-rows-2 gap-2 min-h-0'>
         <section className='news-component'>
           <News type={'top'} onArticleClick={openPopoverWithArticle} />
         </section>

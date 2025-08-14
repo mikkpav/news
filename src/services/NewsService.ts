@@ -9,7 +9,7 @@ const ENDPOINT_GNEWS_HEADLINES = 'top-headlines';
 const ENDPOINT_GNEWS_SEARCH = 'search';
 const TRUNCATION_REGEX = /\s*(?:\.\.\.|…)\s*\[\s*(\d+)\s*chars\s*\]\s*$/i;
 
-const DEBUG = true;
+const DEBUG = false;
 
 function buildUrl(endpoint: string, params: Record<string, string>): string {
     const url = new URL(`${BASE_URL_GNEWS}/${endpoint}`);

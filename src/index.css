@@ -15,7 +15,7 @@
 
 @layer components {
   .header-font {
-    @apply font-mozilla text-4xl font-bold;
+    @apply font-mozilla text-6xl font-bold;
   }
 
   .section-title-font {
@@ -23,7 +23,7 @@
   }
 
   .news-component {
-    @apply border-2 min-h-0 flex flex-col;
+    @apply border-4 min-h-0 flex flex-col;
   }
 
   .center {
@@ -31,7 +31,7 @@
   }
 
   .error {
-    @apply flex justify-center items-center min-h-full bg-red-300;
+    @apply flex justify-center items-center min-h-full bg-red-300 text-lg wrap-anywhere;
   }
 }
 
