@@ -24,7 +24,7 @@ export default function News({ type, onArticleClick }: NewsProps) {
 
     function handleFormSubmit(e: React.FormEvent) {
         e.preventDefault();
-        setKeywords((prevList) => [ ...prevList, keywordDraft ]);
+        setKeywords(() => [keywordDraft]);
         setKeywordDraft('');
     }
     
