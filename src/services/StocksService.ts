@@ -2,7 +2,7 @@ import type { StocksResponse, StockPriceResponse } from '../types/stocks';
 import { fetchBatchOrLoadDebug } from './serviceBase';
 import stocks_debug from './test data/stocks_debug_response.json';
 
-const API_KEY_TWELVE_DATA = '1305ad2667684d83b734f6ee8b3d3f4a';
+const API_KEY_TWELVE_DATA = import.meta.env.VITE_API_KEY_TWELVE_DATA;
 const BASE_URL_TWELVE_DATA = 'https://api.twelvedata.com';
 
 const DEBUG = false;

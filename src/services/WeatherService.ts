@@ -1,7 +1,7 @@
 import type { WeatherForecastResponse, WeatherCurrentResponse } from '../types/weather';
 import { fetchOrLoadDebug } from './serviceBase';
 
-const API_KEY_OWM = '1625c1f1e94e8a304de551551d2ec357';
+const API_KEY_OWM = import.meta.env.VITE_API_KEY_OWM;
 const BASE_URL_OWM = 'https://api.openweathermap.org';
 const ENDPOINT_OWM_CURRENT = 'data/2.5/weather';
 const ENDPOINT_OWM_FORECAST = 'data/2.5/forecast';

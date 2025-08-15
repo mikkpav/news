@@ -3,7 +3,7 @@ import top_debug from './test data/top_debug_response.json';
 import keyword_debug from './test data/keyword_debug_response.json';
 import { fetchOrLoadDebug } from './serviceBase';
 
-const API_KEY_GNEWS = 'd1ba137ee3c83c08205997ea251685b3';
+const API_KEY_GNEWS = import.meta.env.VITE_API_KEY_GNEWS;
 const BASE_URL_GNEWS = 'https://gnews.io/api/v4';
 const ENDPOINT_GNEWS_HEADLINES = 'top-headlines';
 const ENDPOINT_GNEWS_SEARCH = 'search';
