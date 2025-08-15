@@ -83,14 +83,14 @@ export default function News({ type, onArticleClick }: NewsProps) {
         <>
         <h1 className='section-title-font'>{ type == 'top' ? 'Top Headlines' : 'Search Headlines' }</h1>
             { type == 'keyword' && (
-                <form onSubmit={handleFormSubmit} className='flex flex-col p-4'>
+                <form onSubmit={handleFormSubmit} className='flex flex-col p-4 gap-2'>
                     <label htmlFor='keyword' className='text-xl'>Keywords:</label>
                     <div className='flex gap-5 items-center justify-between'>
                         <input 
                             id='keyword' 
                             type='text' 
                             onChange={handleKeywordChange}
-                            className='flex-none w-[70%] border-1 rounded-4 text-xl font-normal' />
+                            className='flex-none w-[70%] border-2 px-2 rounded-4 text-xl font-normal' />
                         <p className='truncate inline-block min-w-[8ch] text-[20px] bg-blue-100 rounded-lg mx-2 px-2 p-1'>{keyword}</p>
                     </div>
                 </form>
