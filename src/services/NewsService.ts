@@ -21,35 +21,37 @@ function buildUrl(endpoint: string, params: Record<string, string>): string {
     return url.toString();
 }
 
+function addLinkToTruncatedContent(article: Article): Article {
+    const truncatedMatch = article.content?.match(TRUNCATION_REGEX);
+
+    if (truncatedMatch) {
+        return {
+        ...article,
+        content: article.content?.replace(TRUNCATION_REGEX, '...') ?? null,
+        isTruncated: true,
+        };
+    }
+
+    return {
+        ...article,
+        isTruncated: false,
+    };
+}
+
 const NewsService = {
     async fetchTopHeadlines(country: string = 'us'): Promise<Article[]> {
         const url = buildUrl(ENDPOINT_GNEWS_HEADLINES, { country });
         const data: NewsResponse = await fetchOrLoadDebug<NewsResponse>(url, DEBUG, top_debug);
-        const cleanedArticles = data.articles.map(article => {
-            const truncatedMatch = article.content?.match(TRUNCATION_REGEX);
-
-            if (truncatedMatch) {
-                return {
-                ...article,
-                content: article.content?.replace(TRUNCATION_REGEX, '...') ?? null,
-                isTruncated: true,
-                };
-            }
-
-            return {
-                ...article,
-                isTruncated: false,
-            };
-        });
-
-        return cleanedArticles;
+        const linkedArticles = data.articles.map(addLinkToTruncatedContent);
+        return linkedArticles;
     },
 
     async fetchHeadlinesByKeywords(keywords: string[]): Promise<Article[]> {
         const query = encodeURIComponent(keywords.join(' AND '));
         const url = buildUrl(ENDPOINT_GNEWS_SEARCH, { q: query });
         const data: NewsResponse = await fetchOrLoadDebug<NewsResponse>(url, DEBUG, keyword_debug);
-        return data.articles;
+        const linkedArticles = data.articles.map(addLinkToTruncatedContent);
+        return linkedArticles;
     },
 };
 
