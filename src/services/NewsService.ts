@@ -9,7 +9,7 @@ const ENDPOINT_GNEWS_HEADLINES = 'top-headlines';
 const ENDPOINT_GNEWS_SEARCH = 'search';
 const TRUNCATION_REGEX = /\s*(?:\.\.\.|…)\s*\[\s*(\d+)\s*chars\s*\]\s*$/i;
 
-const DEBUG = false;
+const DEBUG = true;
 
 function buildUrl(endpoint: string, params: Record<string, string>): string {
     const url = new URL(`${BASE_URL_GNEWS}/${endpoint}`);
@@ -46,8 +46,8 @@ const NewsService = {
         return linkedArticles;
     },
 
-    async fetchHeadlinesByKeywords(keywords: string[]): Promise<Article[]> {
-        const query = encodeURIComponent(keywords.join(' AND '));
+    async fetchHeadlinesByKeyword(keyword: string): Promise<Article[]> {
+        const query = encodeURIComponent(keyword);
         const url = buildUrl(ENDPOINT_GNEWS_SEARCH, { q: query });
         const data: NewsResponse = await fetchOrLoadDebug<NewsResponse>(url, DEBUG, keyword_debug);
         const linkedArticles = data.articles.map(addLinkToTruncatedContent);

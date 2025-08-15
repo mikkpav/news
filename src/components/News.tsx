@@ -15,7 +15,7 @@ export default function News({ type, onArticleClick }: NewsProps) {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [keywordDraft, setKeywordDraft] = useState<string>('');
-    const [keywords, setKeywords] = useState<string[]>(['world']);
+    const [keyword, setKeyword] = useState<string>('world');
     const didLoad = useRef(false);
 
     function handleKeywordChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -24,7 +24,7 @@ export default function News({ type, onArticleClick }: NewsProps) {
 
     function handleFormSubmit(e: React.FormEvent) {
         e.preventDefault();
-        setKeywords(() => [keywordDraft]);
+        setKeyword(keywordDraft);
         setKeywordDraft('');
     }
     
@@ -37,7 +37,7 @@ export default function News({ type, onArticleClick }: NewsProps) {
             loadTopNews()
         } else {
             // The idea was to not automatically load the keyword news - only do it after keyword entered
-            loadNewsWithKeywords();
+            loadNewsWithKeyword();
         }                
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -54,23 +54,23 @@ export default function News({ type, onArticleClick }: NewsProps) {
         }
     }
 
-    const loadNewsWithKeywords = useCallback(async () => {
+    const loadNewsWithKeyword = useCallback(async () => {
         try {
-            const articles = await NewsService.fetchHeadlinesByKeywords(keywords)
+            const articles = await NewsService.fetchHeadlinesByKeyword(keyword)
             setArticles(articles);
         } catch (error) {
             setError((error as Error).message);
         } finally {
             setLoading(false);
         }
-    }, [keywords]);
+    }, [keyword]);
 
     useEffect(() => {
         if (type === 'keyword') {
-            loadNewsWithKeywords();
+            loadNewsWithKeyword();
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [loadNewsWithKeywords]);
+    }, [loadNewsWithKeyword]);
 
     if (loading) {
         return (
@@ -84,12 +84,15 @@ export default function News({ type, onArticleClick }: NewsProps) {
         <h1 className='section-title-font'>{ type == 'top' ? 'Top Headlines' : 'Search Headlines' }</h1>
             { type == 'keyword' && (
                 <form onSubmit={handleFormSubmit} className='flex flex-col p-4'>
-                    <label htmlFor='keyword' className='text-sm'>Keywords:</label>
-                    <input 
-                        id='keyword' 
-                        type='text' 
-                        onChange={handleKeywordChange}
-                        className='border-1 rounded-4 text-xl font-normal' />
+                    <label htmlFor='keyword' className='text-xl'>Keywords:</label>
+                    <div className='flex gap-5 items-center justify-between'>
+                        <input 
+                            id='keyword' 
+                            type='text' 
+                            onChange={handleKeywordChange}
+                            className='flex-none w-[70%] border-1 rounded-4 text-xl font-normal' />
+                        <p className='truncate inline-block min-w-[8ch] text-[20px] bg-blue-100 rounded-lg mx-2 px-2 p-1'>{keyword}</p>
+                    </div>
                 </form>
             )}
             <ul className='text-sm flex flex-col p-2 gap-2 min-h-0 overflow-y-auto scroll-hide'>
