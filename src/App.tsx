@@ -22,17 +22,17 @@ function App() {
 
   return (
     <div className='h-screen flex flex-col'>
-      <header className='header-font py-14 my-10 border-8 border-black'>
+      <header className='header-font py-14 my-10 mx-4 md:mx-0 border-8 border-black'>
         The News
       </header>
 
-      <main className='header-font grid grid-rows-auto grid-cols-[7fr_3fr] gap-6'>
+      <main className='header-font grid grid-rows-auto grid-cols-auto md:grid-cols-[7fr_3fr] gap-10 md:gap-6 mx-6 md:mx-0'>
           <section className='news-component'>
             <News type={'top'} onArticleClick={openPopoverWithArticle} />
           </section>
 
-          <section className='flex flex-col justify-between'>
-              <section className='news-component max-h-[300px]'>
+          <section className='flex flex-col justify-between gap-10 md:gap-6'>
+              <section className='news-component max-h-[340px]'>
                 <Stocks />
               </section>
 
@@ -61,7 +61,7 @@ function App() {
       </a>
       </main>
 
-      <footer className='font-mozilla py-4 min-h-0'>
+      <footer className='font-mozilla py-16 min-h-0'>
         Powered by Mikk Pavelson
       </footer>
     </div>

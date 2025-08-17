@@ -15,11 +15,11 @@
 
 @layer components {
   .header-font {
-    @apply font-mozilla text-6xl font-bold;
+    @apply font-mozilla text-4xl md:text-6xl font-bold;
   }
 
   .section-title-font {
-    @apply font-mozilla text-3xl font-bold py-3;
+    @apply font-mozilla text-2xl md:text-3xl font-bold py-3;
   }
 
   .news-component {

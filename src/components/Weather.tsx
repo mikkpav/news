@@ -64,7 +64,7 @@ export default function Weather() {
                         <img src={urlForIcon(currentWeather?.weather[0].icon)}></img>
                         <p>{currentWeather?.main.temp.toFixed(1)} C</p>
                     </div>
-                    <ul className='flex- gap-0.5 px-10'>{ weatherForecast?.list.map(info => (
+                    <ul className='flex- gap-0.5 px-4 md:px-10'>{ weatherForecast?.list.map(info => (
                             <li className='flex flex-row gap-4 justify-evenly items-center h-20 text-xl'>
                                 <img 
                                     src={urlForIcon(info.weather[0].icon)}

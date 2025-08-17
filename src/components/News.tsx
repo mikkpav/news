@@ -90,18 +90,18 @@ export default function News({ type, onArticleClick }: NewsProps) {
                             id='keyword' 
                             type='text' 
                             onChange={handleKeywordChange}
-                            className='flex-none w-[70%] border-2 px-2 rounded-4 text-xl font-normal' />
-                        <p className='truncate inline-block min-w-[8ch] text-[20px] bg-blue-100 rounded-lg mx-2 px-2 p-1'>{keyword}</p>
+                            className='flex w-[50%] md:w-[70%] flex-[7] border-2 px-2 rounded-4 text-xl font-normal' />
+                        <p className='truncate flex-[3] text-[20px] bg-blue-100 rounded-lg mx-2 px-2 p-1'>{keyword}</p>
                     </div>
                 </form>
             )}
-            <ul className='text-sm flex flex-col p-2 gap-2 min-h-0 overflow-y-auto scroll-hide'>
+            <ul className='text-sm flex flex-col p-2 gap-2 overflow-y-auto scroll-hide'>
                 { articles.map((article) => (
                     <li 
                         key={ article.title } 
                         className='cursor-pointer'
                         onClick={() => onArticleClick(article)}>
-                            <div className='flex max-h-16 p-0.5'>
+                            <div className='flex min-h-0 p-0.5'>
                                 {article.image && 
                                     <img 
                                         src={article.image!} 
@@ -109,7 +109,7 @@ export default function News({ type, onArticleClick }: NewsProps) {
                                         className='w-30 object-cover object-center block rounded-sm'
                                     ></ img>
                                 }
-                                <p className='text-left font-medium p-1'>{article.title}</p>
+                                <p className='text-left line-clamp-2 font-medium p-1'>{article.title}</p>
                             </div>
                     </li>
                 ))}

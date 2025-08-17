@@ -32,7 +32,7 @@ export default function Stocks() {
     return (
         <>
             <h1 className='section-title-font gradient'>Stocks</h1>
-            <ul className='flex flex-col justify-between mx-10 gap-3 text-lg font-medium overflow-y-auto scroll-hide'
+            <ul className='flex flex-col justify-between mx-4 md:mx-10 gap-3 text-lg font-medium overflow-y-auto scroll-hide'
                 aria-live='polite'>
                 { loading
                     ?  Array(symbols.length)
