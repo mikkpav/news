@@ -10,6 +10,6 @@ export default defineConfig({
   ],
   base: '/news',
   server: {
-    //host: true,
+    host: true,
   },
 })

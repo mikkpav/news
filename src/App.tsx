@@ -22,26 +22,28 @@ function App() {
 
   return (
     <div className='h-screen flex flex-col'>
-      <header className='header-font py-10'>
+      <header className='header-font py-14 my-10 border-8 border-black'>
         The News
       </header>
 
-      <main className='flex-1 header-font grid grid-cols-2 grid-rows-2 gap-2 min-h-0'>
-        <section className='news-component'>
-          <News type={'top'} onArticleClick={openPopoverWithArticle} />
-        </section>
+      <main className='header-font grid grid-rows-auto grid-cols-[7fr_3fr] gap-6'>
+          <section className='news-component'>
+            <News type={'top'} onArticleClick={openPopoverWithArticle} />
+          </section>
 
-        <section className='news-component'>
-          <News type={'keyword'} onArticleClick={openPopoverWithArticle} />
-        </section>
+          <section className='flex flex-col justify-between'>
+              <section className='news-component max-h-[300px]'>
+                <Stocks />
+              </section>
 
-        <section className='news-component'>
-          <Stocks />
-        </section>
+              <section className='news-component max-h-[500px]'>
+                <Weather />
+              </section>
+          </section>
 
-        <section className='news-component'>
-          <Weather />
-        </section>
+          <section className='news-component'>
+            <News type={'keyword'} onArticleClick={openPopoverWithArticle} />
+          </section>
 
       <a href={selectedArticle?.url} target='_blank'>
         {selectedArticle && 
