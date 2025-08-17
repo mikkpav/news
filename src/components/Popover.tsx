@@ -41,7 +41,7 @@ export default function Popover({ isOpen, onClose, imageUrl, title, content, isC
       <div className='fixed inset-0 bg-black/50 flex items-center justify-center z-50'>
         <div
           ref={popoverRef}
-          className='bg-white flex flex-col gap-6 rounded-2xl w-[35vw] h-[66vh] max-w-3xl overflow-auto'
+          className='bg-white flex flex-col gap-6 rounded-2xl w-[76vw] md:w-[35vw] h-[70vh] md:h-[66vh] max-w-3xl overflow-auto'
         >
           { imageUrl && <img 
                                         src= { imageUrl } 
