@@ -32,7 +32,7 @@ function App() {
           </section>
 
           <section className='flex flex-col justify-between gap-10 md:gap-6'>
-              <section className='news-component max-h-[340px]'>
+              <section className='news-component'>
                 <Stocks />
               </section>
 

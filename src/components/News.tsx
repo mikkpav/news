@@ -84,7 +84,7 @@ export default function News({ type, onArticleClick }: NewsProps) {
         <h1 className='section-title-font'>{ type == 'top' ? 'Top Headlines' : 'Search Headlines' }</h1>
             { type == 'keyword' && (
                 <form onSubmit={handleFormSubmit} className='flex flex-col p-4 gap-2'>
-                    <label htmlFor='keyword' className='text-xl'>Keywords:</label>
+                    <label htmlFor='keyword' className='text-xl'>Keyword:</label>
                     <div className='flex gap-5 items-center justify-between'>
                         <input 
                             id='keyword' 
@@ -95,7 +95,7 @@ export default function News({ type, onArticleClick }: NewsProps) {
                     </div>
                 </form>
             )}
-            <ul className='text-sm flex flex-col p-2 gap-2 overflow-y-auto scroll-hide'>
+            <ul className='text-sm flex flex-col p-2 gap-4 overflow-y-auto scroll-hide'>
                 { articles.map((article) => (
                     <li 
                         key={ article.title } 
@@ -109,7 +109,7 @@ export default function News({ type, onArticleClick }: NewsProps) {
                                         className='w-30 object-cover object-center block rounded-sm'
                                     ></ img>
                                 }
-                                <p className='text-left line-clamp-2 font-medium p-1'>{article.title}</p>
+                                <p className='text-left line-clamp-2 font-medium p-1 pl-2'>{article.title}</p>
                             </div>
                     </li>
                 ))}
