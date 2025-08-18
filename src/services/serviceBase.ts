@@ -9,6 +9,10 @@ export async function fetchOrLoadDebug<T>(url: string, debug = false, debugData?
     return debugData;
   }
   console.log('>>> URL: ' + url);
+  const now = new Date();
+  const timeString = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}.${now.getMilliseconds()}`;
+  console.log(timeString);
+  
   const res = await fetch(url);
   if (!res.ok) {
     throw new Error(`Fetch error ${res.status} at ${url}`);

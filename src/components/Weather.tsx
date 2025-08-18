@@ -65,12 +65,14 @@ export default function Weather() {
                         <p>{currentWeather?.main.temp.toFixed(1)} C</p>
                     </div>
                     <ul className='flex- gap-0.5 px-4 md:px-10'>{ weatherForecast?.list.map(info => (
-                            <li className='flex flex-row gap-4 justify-evenly items-center h-20 text-xl'>
-                                <img 
-                                    src={urlForIcon(info.weather[0].icon)}
-                                    className='w-auto h-full object-contain'></img>
-                                <span>{toDateTimeString(info.dt)}</span>
-                                <span>{info.main.temp.toFixed(1)}°C</span>
+                            <li 
+                                key={ info.dt } 
+                                className='flex flex-row gap-4 justify-evenly items-center h-20 text-xl'>
+                                    <img 
+                                        src={urlForIcon(info.weather[0].icon)}
+                                        className='w-auto h-full object-contain'></img>
+                                    <span>{toDateTimeString(info.dt)}</span>
+                                    <span>{info.main.temp.toFixed(1)}°C</span>
                             </li>
                         ))}
                     </ul>

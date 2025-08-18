@@ -5,11 +5,20 @@ import Loading from '../assets/loading.gif';
 
 export type NewsType = 'top' | 'keyword';
 
-type NewsProps = { 
-    type: NewsType;
-    id?: number;
+type BaseNewsProps = {
     onArticleClick: (article: Article) => void;
-};
+}
+
+type TopHeadlineProps = BaseNewsProps & {
+    type: Exclude<NewsType, 'keyword'>;
+}
+
+type KeywordHeadlineProps = BaseNewsProps & {
+    type: 'keyword';
+    id: number;
+}
+
+type NewsProps = TopHeadlineProps | KeywordHeadlineProps;
 
 export default function News({ type, id, onArticleClick }: NewsProps) {
     const [articles, setArticles] = useState<Article[]>([]);
@@ -40,11 +49,13 @@ export default function News({ type, id, onArticleClick }: NewsProps) {
         didLoad.current = true;
 
         if (type === 'top') {
-            loadTopNews()
+            loadTopNews();
         } else {
-            // The idea was to not automatically load the keyword news - only do it after keyword entered
-            loadNewsWithKeyword();
-        }                
+            // A workaround for the free API quotas
+            setTimeout(() => {
+                loadNewsWithKeyword();
+            }, id === 1 ? 1200 : 2400);
+        }          
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -71,19 +82,11 @@ export default function News({ type, id, onArticleClick }: NewsProps) {
         }
     }, [keyword]);
 
-    useEffect(() => {
-        if (type === 'keyword') {
-            loadNewsWithKeyword();
-        }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [loadNewsWithKeyword]);
-
     if (loading) {
         return (
             <div className='center'><img className='w-30' src={Loading}></img></div>
         );
     }
-    if (error) return <div className='error'>Error loading:<br/>{ error }</div>;
 
     return (
         <>
@@ -101,25 +104,29 @@ export default function News({ type, id, onArticleClick }: NewsProps) {
                     </div>
                 </form>
             )}
-            <ul className='text-sm flex flex-col p-2 gap-4 overflow-y-auto scroll-hide'>
-                { articles.map((article) => (
-                    <li 
-                        key={ article.title } 
-                        className='cursor-pointer'
-                        onClick={() => onArticleClick(article)}>
-                            <div className='flex min-h-0 p-0.5'>
-                                {article.image && 
-                                    <img 
-                                        src={article.image!} 
-                                        alt='Article image'
-                                        className='w-30 object-cover object-center block rounded-sm'
-                                    ></ img>
-                                }
-                                <p className='text-left line-clamp-2 font-medium p-1 pl-2'>{article.title}</p>
-                            </div>
-                    </li>
-                ))}
-            </ul>
+            { error
+                ? <div className='error'>Error loading:<br/>{ error }</div>
+                : 
+                <ul className='text-sm flex flex-col p-2 gap-4 overflow-y-auto scroll-hide'>
+                    { articles.map((article) => (
+                        <li 
+                            key={ article.title } 
+                            className='cursor-pointer'
+                            onClick={() => onArticleClick(article)}>
+                                <div className='flex min-h-0 p-0.5'>
+                                    {article.image && 
+                                        <img 
+                                            src={article.image!} 
+                                            alt='Article image'
+                                            className='w-30 object-cover object-center block rounded-sm'
+                                        ></ img>
+                                    }
+                                    <p className='text-left line-clamp-2 font-medium p-1 pl-2'>{article.title}</p>
+                                </div>
+                        </li>
+                    ))}
+                </ul>
+            }
         </>
     )
 }

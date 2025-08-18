@@ -31,7 +31,7 @@
   }
 
   .error {
-    @apply flex justify-center items-center min-h-full bg-red-300 text-lg wrap-anywhere;
+    @apply flex justify-center items-center text-lg wrap-anywhere;
   }
 }
 
