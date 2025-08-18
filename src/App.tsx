@@ -41,8 +41,16 @@ function App() {
               </section>
           </section>
 
-          <section className='news-component'>
-            <News type={'keyword'} onArticleClick={openPopoverWithArticle} />
+          <h1 className='section-title-font md:col-span-2'>Search Headlines</h1>
+
+          <section className='flex flex-col md:flex-row md:col-span-2 gap-6'>
+            <section className='news-component'>
+              <News type={'keyword'} id={1} onArticleClick={openPopoverWithArticle} />
+            </section>
+
+            <section className='news-component'>
+              <News type={'keyword'} id={2} onArticleClick={openPopoverWithArticle} />
+            </section>
           </section>
 
       <a href={selectedArticle?.url} target='_blank'>

@@ -7,15 +7,20 @@ export type NewsType = 'top' | 'keyword';
 
 type NewsProps = { 
     type: NewsType;
+    id?: number;
     onArticleClick: (article: Article) => void;
 };
 
-export default function News({ type, onArticleClick }: NewsProps) {
+export default function News({ type, id, onArticleClick }: NewsProps) {
     const [articles, setArticles] = useState<Article[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [keywordDraft, setKeywordDraft] = useState<string>('');
-    const [keyword, setKeyword] = useState<string>('world');
+    const storageKeyword = `keyword${id}`;
+    const [keyword, setKeyword] = useState<string>(() => {
+        const storedKeyword = localStorage.getItem(storageKeyword);
+        return storedKeyword ?? 'world';
+    });
     const didLoad = useRef(false);
 
     function handleKeywordChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -25,6 +30,7 @@ export default function News({ type, onArticleClick }: NewsProps) {
     function handleFormSubmit(e: React.FormEvent) {
         e.preventDefault();
         setKeyword(keywordDraft);
+        localStorage.setItem(storageKeyword, keywordDraft)
         setKeywordDraft('');
     }
     
@@ -81,7 +87,7 @@ export default function News({ type, onArticleClick }: NewsProps) {
 
     return (
         <>
-        <h1 className='section-title-font'>{ type == 'top' ? 'Top Headlines' : 'Search Headlines' }</h1>
+        <h1 className='section-title-font'>{ type == 'top' && 'Top Headlines' }</h1>
             { type == 'keyword' && (
                 <form onSubmit={handleFormSubmit} className='flex flex-col p-4 gap-2'>
                     <label htmlFor='keyword' className='text-xl'>Keyword:</label>

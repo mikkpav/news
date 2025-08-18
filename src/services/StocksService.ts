@@ -5,7 +5,7 @@ import stocks_debug from './test data/stocks_debug_response.json';
 const API_KEY_TWELVE_DATA = import.meta.env.VITE_API_KEY_TWELVE_DATA;
 const BASE_URL_TWELVE_DATA = 'https://api.twelvedata.com';
 
-const DEBUG = false;
+const DEBUG = true;
 
 const StocksService = {
     async fetchBatchStockPrices(symbols: string[]): Promise<StockPriceResponse[]> {
