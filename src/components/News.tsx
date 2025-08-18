@@ -11,6 +11,7 @@ type BaseNewsProps = {
 
 type TopHeadlineProps = BaseNewsProps & {
     type: Exclude<NewsType, 'keyword'>;
+    id?: number;
 }
 
 type KeywordHeadlineProps = BaseNewsProps & {
