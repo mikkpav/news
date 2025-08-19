@@ -29,9 +29,7 @@ export default function News({ type, id, onArticleClick }: NewsProps) {
     const [keywordDraft, setKeywordDraft] = useState<string>('');
     const storageKeyword = `keyword${id}`;
     const [keyword, setKeyword] = useState<string>(() => {
-        console.log('>>> keyword useState key: ', storageKeyword);
         const storedKeyword = localStorage.getItem(storageKeyword);
-        console.log('>>> keyword useState stored: ', storedKeyword);
         return storedKeyword ?? 'world';
     });
     const didLoad = useRef(false);
@@ -41,10 +39,8 @@ export default function News({ type, id, onArticleClick }: NewsProps) {
     }
 
     function handleFormSubmit(e: React.FormEvent) {
-        console.log('>>> handleFormSubmit');
         e.preventDefault();
         setKeyword(keywordDraft);
-        console.log('>>> setKeyword: ', keywordDraft);
         localStorage.setItem(storageKeyword, keywordDraft)
         setKeywordDraft('');
     }
@@ -69,14 +65,12 @@ export default function News({ type, id, onArticleClick }: NewsProps) {
     async function loadTopNews() {
         try {
             const articles = await NewsService.fetchTopHeadlines();
-            console.log(`setArticles GNEWS: ${articles}`);
             setArticles(articles);
         } catch (error: unknown) {
 
             if (isApiError(error) && error.statusCode === 403) {
                 try {
                     const fallbackArticles = await NewsService.fetchFallbackTopHeadlines();
-                    console.log(`setArticles NEWSAPI: ${fallbackArticles}`);
                     setArticles(fallbackArticles);
                 } catch (fallbackError: unknown) {
                     if (isApiError(fallbackError)) { 
@@ -93,7 +87,7 @@ export default function News({ type, id, onArticleClick }: NewsProps) {
 
     const loadNewsWithKeyword = useCallback(async () => {
         try {
-            console.log('>>> loadNewsWithKeyword')
+            console.log('>>> loadNewsWithKeyword: ', keyword)
             const articles = await NewsService.fetchHeadlinesByKeyword(keyword)
             setArticles(articles);
         } catch (error) {

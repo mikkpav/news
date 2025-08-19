@@ -59,7 +59,7 @@ const NewsService = {
 
     async fetchHeadlinesByKeyword(keyword: string): Promise<Article[]> {
         const query = encodeURIComponent(keyword);
-        const url = buildUrl(BASE_URL_GNEWS, ENDPOINT_GNEWS_SEARCH, { q: query });
+        const url = buildUrl(BASE_URL_GNEWS, ENDPOINT_GNEWS_SEARCH, { apikey: API_KEY_GNEWS, q: query });
         const data: NewsResponse = await fetchOrLoadDebug<NewsResponse>(url, DEBUG, keyword_debug);
         const linkedArticles = data.articles.map(addLinkToTruncatedContent);
         return linkedArticles;
