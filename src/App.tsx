@@ -1,14 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css'
 import News from './components/News';
 import Popover from './components/Popover';
 import Stocks from './components/Stocks';
 import Weather from './components/Weather';
 import type { Article } from './types/news';
+import ReactGA from 'react-ga4';
 
 function App() {
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
+  
+  ReactGA.initialize('G-BK9VDR3CYX');
+
+  useEffect(() => {
+    ReactGA.send({ hitType: 'pageview', page: window.location.pathname });
+  }, []);
 
   function openPopoverWithArticle(article: Article) {
     setSelectedArticle(article);
