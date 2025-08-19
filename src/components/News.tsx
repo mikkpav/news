@@ -1,6 +1,7 @@
 import type { Article } from '../types/news';
 import { useEffect, useRef, useState, useCallback } from 'react';
 import NewsService from "../services/NewsService";
+import { isApiError } from '../services/serviceBase';
 import Loading from '../assets/loading.gif';
 
 export type NewsType = 'top' | 'keyword';
@@ -28,7 +29,9 @@ export default function News({ type, id, onArticleClick }: NewsProps) {
     const [keywordDraft, setKeywordDraft] = useState<string>('');
     const storageKeyword = `keyword${id}`;
     const [keyword, setKeyword] = useState<string>(() => {
+        console.log('>>> keyword useState key: ', storageKeyword);
         const storedKeyword = localStorage.getItem(storageKeyword);
+        console.log('>>> keyword useState stored: ', storedKeyword);
         return storedKeyword ?? 'world';
     });
     const didLoad = useRef(false);
@@ -38,8 +41,10 @@ export default function News({ type, id, onArticleClick }: NewsProps) {
     }
 
     function handleFormSubmit(e: React.FormEvent) {
+        console.log('>>> handleFormSubmit');
         e.preventDefault();
         setKeyword(keywordDraft);
+        console.log('>>> setKeyword: ', keywordDraft);
         localStorage.setItem(storageKeyword, keywordDraft)
         setKeywordDraft('');
     }
@@ -64,9 +69,23 @@ export default function News({ type, id, onArticleClick }: NewsProps) {
     async function loadTopNews() {
         try {
             const articles = await NewsService.fetchTopHeadlines();
+            console.log(`setArticles GNEWS: ${articles}`);
             setArticles(articles);
-        } catch (error) {
-            setError((error as Error).message);
+        } catch (error: unknown) {
+
+            if (isApiError(error) && error.statusCode === 403) {
+                try {
+                    const fallbackArticles = await NewsService.fetchFallbackTopHeadlines();
+                    console.log(`setArticles NEWSAPI: ${fallbackArticles}`);
+                    setArticles(fallbackArticles);
+                } catch (fallbackError: unknown) {
+                    if (isApiError(fallbackError)) { 
+                        setError(`Both APIs failed (${fallbackError.statusCode}): ${fallbackError.error}`)
+                    }
+                }
+            } else {
+                setError((error as Error).message);
+            }
         } finally {
             setLoading(false);
         }
@@ -74,14 +93,19 @@ export default function News({ type, id, onArticleClick }: NewsProps) {
 
     const loadNewsWithKeyword = useCallback(async () => {
         try {
+            console.log('>>> loadNewsWithKeyword')
             const articles = await NewsService.fetchHeadlinesByKeyword(keyword)
             setArticles(articles);
         } catch (error) {
             setError((error as Error).message);
         } finally {
-            setLoading(false);
+            setLoading(false);  
         }
     }, [keyword]);
+
+    useEffect(() => {
+        loadNewsWithKeyword();
+    }, [loadNewsWithKeyword]);
 
     if (loading) {
         return (

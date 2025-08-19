@@ -1,6 +1,5 @@
 
 export interface NewsResponse {
-    totalArticles: number;
     articles: Article[];
 }
 
@@ -10,6 +9,7 @@ export interface Article {
     description: string | null;
     url: string;
     image: string | null;
+    urlToImage?: string | null;
     publishedAt: string;
     content: string | null;
     isTruncated?: boolean;
@@ -18,5 +18,5 @@ export interface Article {
 export interface Source {
     id: string | null;
     name: string;
-    url: string;
+    url?: string | null;
 }

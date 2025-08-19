@@ -1,4 +1,16 @@
+export type ApiError = {
+  error: string;
+  statusCode: number;
+}
 
+export function isApiError(err: unknown): err is ApiError {
+  return (
+    typeof err === "object" &&
+    err !== null &&
+    "statusCode" in err &&
+    typeof (err as { statusCode: unknown }).statusCode === "number"
+  );
+}
 
 export async function fetchOrLoadDebug<T>(url: string, debug = false, debugData?: T): Promise<T> {
   if (debug) {
@@ -9,13 +21,10 @@ export async function fetchOrLoadDebug<T>(url: string, debug = false, debugData?
     return debugData;
   }
   console.log('>>> URL: ' + url);
-  const now = new Date();
-  const timeString = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}.${now.getMilliseconds()}`;
-  console.log(timeString);
-  
-  const res = await fetch(url);
+
+  const res = await fetch(url, { headers: { 'User-Agent': 'MyNewsApp/1.0' } });
   if (!res.ok) {
-    throw new Error(`Fetch error ${res.status} at ${url}`);
+    throw { error: `Fetch error ${res.statusText} at ${url}`, statusCode: res.status}
   }
   
   return res.json();
@@ -45,7 +54,7 @@ export async function fetchBatchOrLoadDebug<T>(
   });
 
   if (!res.ok) {
-    throw new Error(`Fetch error ${res.status} at ${url}`);
+    throw { error: `Fetch error ${res.statusText} at ${url}`, statusCode: res.status}
   }
 
   return res.json();
