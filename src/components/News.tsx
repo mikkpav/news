@@ -87,7 +87,6 @@ export default function News({ type, id, onArticleClick }: NewsProps) {
 
     const loadNewsWithKeyword = useCallback(async () => {
         try {
-            console.log('>>> loadNewsWithKeyword: ', keyword)
             const articles = await NewsService.fetchHeadlinesByKeyword(keyword)
             setArticles(articles);
         } catch (error) {

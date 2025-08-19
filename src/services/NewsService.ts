@@ -52,7 +52,6 @@ const NewsService = {
     async fetchFallbackTopHeadlines(): Promise<Article[]> {
         const url = buildUrl(BASE_URL_WORDLNEWS, ENDPOINT_WORLDNEWS_TOP, { 'api-key': API_KEY_WORLDNEWS, q: 'world' });
         const data: NewsResponse = await fetchOrLoadDebug<NewsResponse>(url, DEBUG);
-        console.log(`>>> ${data}`)
         const linkedArticles = data.articles.map(addLinkToTruncatedContent);
         return linkedArticles;
     },
