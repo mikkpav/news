@@ -1,7 +1,6 @@
 import type { Article } from '../types/news';
 import { useEffect, useRef, useState, useCallback } from 'react';
 import NewsService from "../services/NewsService";
-import { isApiError } from '../services/serviceBase';
 import Loading from '../assets/loading.gif';
 
 export type NewsType = 'top' | 'keyword';
@@ -67,19 +66,7 @@ export default function News({ type, id, onArticleClick }: NewsProps) {
             const articles = await NewsService.fetchTopHeadlines();
             setArticles(articles);
         } catch (error: unknown) {
-
-            if (isApiError(error) && error.statusCode === 403) {
-                try {
-                    const fallbackArticles = await NewsService.fetchFallbackTopHeadlines();
-                    setArticles(fallbackArticles);
-                } catch (fallbackError: unknown) {
-                    if (isApiError(fallbackError)) { 
-                        setError(`Both APIs failed (${fallbackError.statusCode}): ${fallbackError.error}`)
-                    }
-                }
-            } else {
-                setError((error as Error).message);
-            }
+            setError((error as Error).message);
         } finally {
             setLoading(false);
         }
